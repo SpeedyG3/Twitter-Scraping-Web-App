@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Search Result</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top" data-bs-theme="dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Twitter Scraper App</span>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container mt-4">
+            <p><a href="{{ url_for('index') }}"><button class="btn btn-secondary">Back to Search Page</button></a></p>
+            
+            <!-- <div class="col-md-6 card">
+                <div class="card-body">
+                    <h3 class="card-title">User Details</h3>
+                    <strong>Username:</strong> {{ user_data['username'] or 'No data available' }}<br>
+                    <strong>Name:</strong> {{ user_data['name'] or 'No data available' }}<br>
+                    <strong>Joined:</strong> {{ user_data['joined'] or 'No data available' }}<br>
+                    <strong>Bio:</strong> {{ user_data['bio'] or 'No data available' }}<br>
+                    <strong>Followers:</strong> {{ user_data['followers'] or 'No data available' }}<br>
+                    <strong>Following:</strong> {{ user_data['following'] or 'No data available' }}
+                </div>
+            </div> -->
+            {% if error_message %}
+                <p>{{ error_message }}</p>
+            {% endif %}
+
+            {% if user_data %}
+            <div class="container mt-4 mb-2">
+                <!-- <h3 class="mb-4">User Details</h3> -->
+                <div class="row">
+                    <!-- Column for user details -->
+                    <div class="col-md-6">
+                        <h3 class="mb-4">User Details</h3>
+                        <p><strong>Username:</strong> {{ user_data['username'] or 'No data available' }}</p>
+                        <p><strong>Name:</strong> {{ user_data['name'] or 'No data available' }}</p>
+                        <p><strong>Joined:</strong> {{ user_data['joined'] or 'No data available' }}</p>
+                        <p><strong>Bio:</strong> {{ user_data['bio'] or 'No data available' }}</p>
+                        <p><strong>Followers:</strong> {{ user_data['followers'] or 'No data available' }}</p>
+                        <p><strong>Following:</strong> {{ user_data['following'] or 'No data available' }}</p>
+                    </div>
+
+                    <!-- Column for user image -->
+                    <div class="col-md-6 text-center">
+                        <img src="{{ user_data['image'] or 'https://dummyimage.com/400x400/000/ffffff&text=Blank' }}"
+                            alt="User-Image" class="img-fluid" style="border-radius: 50%;">
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <h2 class="mb-3">Search Result for {{ name }}</h2>
+            <h6>Mode: {{ mode }}</h6>
+            <h6>Number of Tweets: {{ no }}</h6>
+
+            <!-- Display the DataFrame in a Bootstrap-styled table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Twitter Link</th>
+                        <th>Text</th>
+                        <th>Date</th>
+                        <th>Likes</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index, row in tweets_df.iterrows() %}
+                    <tr>
+                        <td><a href="{{ row['twitter_link'] }}" target="_blank">{{ row['twitter_link'] }}</a></td>
+                        <td>{{ row['text'] }}</td>
+                        <td>{{ row['date'] }}</td>
+                        <td>{{ row['likes'] }}</td>
+                        <td>{{ row['comments'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("content").style.display = "none";
+            document.getElementById("loadingGif").style.display = "block";
+        }
+
+        document.getElementById("searchForm").addEventListener("submit", function () {
+            showLoading();
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
