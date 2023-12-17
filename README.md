@@ -1,3 +1,5 @@
+*Sometimes output may not be displayed due to various errors like Retreival/Display errors - please try running the app again*
+
 # Twitter-Scraping-Web-App
 ## Brief Description
 Discover the latest trends and insights on Twitter with our innovative web application. Powered by Flask and JavaScript, and enhanced with a sleek design using CSS and Bootstrap, our app leverages the powerful capabilities of Nitter and Twitter Scraper. Effortlessly scrape tweets, users, or hashtags, gaining valuable insights into the dynamic world of Twitter.
